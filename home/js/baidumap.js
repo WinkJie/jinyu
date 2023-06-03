@@ -9,7 +9,7 @@ window.onload = function() {
     alert(script.src);
 
     // 创建地图并设置中心点和缩放级别
-    var map = new BMap.Map("map");
+    var map = new BMap.Map("map-container");
     var point = new BMap.Point(116.404, 39.915);
     map.centerAndZoom(point, 15);
 
