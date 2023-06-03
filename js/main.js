@@ -96,6 +96,20 @@ showMoreButton1.addEventListener('click', () => {
     // 隐藏“显示更多”按钮
     showMoreButton1.style.display = 'none';
 });
+function toggleContent(className,getmorename) {
+    var content = document.querySelector("." + className);
+    var button = document.querySelector("." + getmorename);
+
+    if (content.style.height === "90px") {
+        content.style.height = "auto";
+        button.innerText = "折叠";
+    } else {
+        content.style.height = "90px";
+        button.innerText = "展开";
+    }
+}
+
+
 
 
 
