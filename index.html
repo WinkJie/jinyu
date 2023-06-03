@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>视频播放弹窗</title>
+    <meta charset="UTF-8">
+    <style>
+        #video-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(0,0,0,0.8);
+        }
+        #video-dialog .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<button id="play-btn">播放视频</button>
+<div id="video-dialog">
+    <div class="close-btn">&times;</div>
+    <video style="width: 50%;height: 50%;" src="home/bg.mp4" controls></video>
+</div>
+<script>
+    window.onload = function() {
+        var playBtn = document.getElementById('play-btn');
+        var videoDialog = document.getElementById('video-dialog');
+        var closeBtn = document.querySelector('#video-dialog .close-btn');
+
+        playBtn.onclick = function() {
+            videoDialog.style.display = 'block';
+        }
+
+        closeBtn.onclick = function() {
+            videoDialog.style.display = 'none';
+        }
+
+        videoDialog.onclick = function(event) {
+            if (event.target == videoDialog) {
+                videoDialog.style.display = 'none';
+            }
+        }
+    };
+</script>
+</body>
+</html>
