@@ -334,6 +334,28 @@ an X*/
     overflow: hidden; /* 超出部分隐藏 */
 }
 
+.getmore2,
+.getmore3,
+.getmore4,
+.getmore5{
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.getmore2:hover,
+.getmore3:hover,
+.getmore4:hover,
+.getmore5:hover {
+    background-color: #2980b9;
+}
+
+
+
 /*.introText4:hover,*/
 /*.introText5:hover,*/
 /*.introText2:hover,*/

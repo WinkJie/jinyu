@@ -85,11 +85,20 @@ var gotoByScroll = function ()
 function toggleContent(className,getmorename) {
     var content = document.querySelector("." + className);
     var button = document.querySelector("." + getmorename);
-    if (content.style.height === "90px") {
+    // if (content.style.height === "90px") {
+    //     content.style.height = "auto";
+    //     button.innerText = "折叠";
+    // } else {
+    //     content.style.height = "90px";
+    //     button.innerText = "展开";
+    // }
+
+    if (button.innerText === "展开") {
         content.style.height = "auto";
         button.innerText = "折叠";
-    } else {
-        content.style.height = "90px";
+    }else if(button.innerText === "折叠")
+	{
+		content.style.height = "90px";
         button.innerText = "展开";
     }
 }
