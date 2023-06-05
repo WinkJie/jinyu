@@ -286,12 +286,13 @@ an X*/
 }
 }
 #m_nav_list li a{
-    background-color: rgba(0,231,169,0.8);
+    background-color: rgba(169,231,255,0.8);
     border-radius: 13px;
     opacity: 1;
 }
 #m_nav_list li a:hover{
-    background-color: rgba(90,31,69,0.8);
+    background-color: rgba(0,233,169,0.8);
+    box-shadow: 0 16px 20px rgba(0, 0, 0, 0.8);
     border-radius: 13px;
     opacity: 1;
 }
