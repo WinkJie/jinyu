@@ -37,8 +37,15 @@ for (const linkElement of linkElements) {
     });
 }
 
+const queryString = window.location.search; // 获取查询参数字符串（例如："?article=1"）
+const urlParams = new URLSearchParams(queryString); // 创建 URLSearchParams 对象
+const articleId = urlParams.get('article'); // 获取查询参数 "article" 的值
+// 或者：const articleId = window.location.hash.substring(1); // 获取 URL 中的标识符（例如："#article-1" -> "article-1"）
+// 然后根据 articleId 加载相应的文章内容...
+
+
 // 页面加载时自动加载第一篇文章
-loadArticle(linkElements[0].dataset.url);
+loadArticle(linkElements[articleId].dataset.url);
 
 //写入md
 const fs = require('fs');

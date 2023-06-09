@@ -1,7 +1,36 @@
+/*body {*/
+    /*font-family: Arial, sans-serif;*/
+    /*background-color: #23241f;*/
+    /*color: antiquewhite;*/
+/*}*/
+
+/*#header,*/
+/*#content {*/
+    /*max-width: 800px;*/
+    /*margin: 0 auto;*/
+    /*padding: 20px;*/
+/*}*/
+
+/*pre {*/
+    /*background-color: #f4f4f4;*/
+    /*color: #333;*/
+    /*padding: 6px 12px;*/
+    /*border-radius: 3px;*/
+/*}*/
 body {
     font-family: Arial, sans-serif;
+    margin: 0; /* 清除 body 的 margin */
+    padding: 0; /* 清除 body 的 padding */
     background-color: #23241f;
     color: antiquewhite;
+
+    height: 80%;
+}
+footer
+{
+    background-color: #4BFF00;
+    width: 100%;
+    height: 20%;
 }
 
 #header,
@@ -9,11 +38,40 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    margin-left: fill;
 }
 
-pre {
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 6px 12px;
-    border-radius: 3px;
+#content {
+    margin-left: 25%; /* 根据侧边栏宽度调整 margin */
+}
+
+#index {
+    position: fixed;
+    left: 20px; /* 调整侧边栏距离左侧的距离 */
+    top: 20px; /* 调整侧边栏距离顶部的距离 */
+    width: 200px; /* 调整侧边栏宽度 */
+
+}
+
+#index ul {
+    padding: 0;
+    list-style: none;
+}
+
+#index li {
+    margin-bottom: 10px;
+}
+
+#index a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+#tail
+{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: fill;
 }
