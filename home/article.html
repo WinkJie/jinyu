@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>文章阅读框架</title>
+    <link rel="stylesheet" type="text/css" href="css/article.css" />
+</head>
+<body>
+<div id="header">
+    <h1>文章标题</h1>
+</div>
+
+<div id="content">
+    <!-- 文章内容将会被动态添加到这个div中 -->
+</div>
+
+<div id="index">
+    <ul>
+        <li><a href="#" data-url="md/article1.md">文章1</a></li>
+        <li><a href="#" data-url="article2.md">文章2</a></li>
+        <li><a href="#" data-url="article3.md">文章3</a></li>
+        <!-- 更多文章链接 -->
+    </ul>
+</div>
+<div>
+    <form action="/message" method="post">
+        <div>
+            <label>留言：</label>
+            <input type="text" name="message">
+            <button type="submit">提交</button>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+<script src="js/article.js"></script>
+</body>
+</html>
