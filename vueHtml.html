@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章阅读框架</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #433;
+            color: #9A45BD;
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .navigation {
+            max-width: 200px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            position: sticky;
+            top: 40px;
+        }
+
+        .navigation h3 {
+            margin-top: 0;
+        }
+
+        .navigation ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navigation ul li {
+            margin-bottom: 10px;
+        }
+
+        .navigation ul li a {
+            color: #55ACEE;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navigation ul li a:hover {
+            color: #333;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 767px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .navigation {
+                margin-right: 0;
+                margin-bottom: 20px;
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <h1 id="title">文章标题</h1>
+    <p id="author">作者：binjie09</p>
+    <p id="date">日期：2023-06-10</p>
+</header>
+
+<div class="content-wrapper">
+    <div class="content markdown-body"></div>
+
+    <nav class="navigation">
+        <h3>目录</h3>
+        <ul id="index"></ul>
+    </nav>
+</div>
+
+<footer>
+    <p>&copy; 2023 深圳市南山区中南大道</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+<script>
+    const converter = new showdown.Converter();
+    const contentElement = document.querySelector(".content");
+    const indexElement = document.querySelector("#index");
+
+    const articles = [
+        {
+            "title": "第一篇文章",
+            "file": "./home/md/article1.md"
+        },
+        {
+            "title": "第二篇文章",
+            "file": "./home/md/article2.md"
+        },
+        {
+            "title": "第二篇文章",
+            "file": "./home/md/article2.md"
+        }
+    ];
+
+
+    const queryString = window.location.search; // 获取查询参数字符串（例如："?article=1"）
+    const urlParams = new URLSearchParams(queryString); // 创建 URLSearchParams 对象
+    const articleId = urlParams.get('article'); // 获取查询参数 "article" 的值
+    // 或者：const articleId = window.location.hash.substring(1); // 获取 URL 中的标识符（例如："#article-1" -> "article-1"）
+    // 然后根据 articleId 加载相应的文章内容...
+
+
+
+    function loadArticle(url) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.onload = () => {
+            const html = converter.makeHtml(xhr.responseText);
+            contentElement.innerHTML = html;
+            updateMetadata(html);
+            updateNavigation(html);
+        };
+        xhr.send();
+    }
+
+    function updateMetadata(html) {
+        const metadataRegex = /---\r?\n(.+?)\r?\n---/s;
+        const metadataString = html.match(metadataRegex)[1];
+        const metadata = parseMetadata(metadataString);
+        document.querySelector("#title").textContent = metadata.title;
+        document.querySelector("#author").textContent = "作者：" + metadata.author;
+        document.querySelector("#date").textContent = "日期：" + metadata.date;
+    }
+
+    function parseMetadata(metadataString) {
+        const metadata = {};
+        metadataString.trim().split("\n").forEach(line => {
+            const separatorIndex = line.indexOf(":");
+            const key = line.substr(0, separatorIndex).trim();
+            const value = line.substr(separatorIndex + 1).trim();
+            metadata[key] = value;
+        });
+        return metadata;
+    }
+
+    function updateNavigation(html) {
+        indexElement.innerHTML = "";
+        const headings = html.match(/<h[1-4]>(.*?)<\/h[1-4]>/g);
+        if (headings) {
+            headings.forEach((heading, index) => {
+                const level = heading.substring(2, 3);
+                const title = heading.replace(/<\/?h[1-4]>/g, "");
+                const slug = title.replace(/\s+/g, "-").toLowerCase();
+                const listItem = document.createElement("li");
+                const link = document.createElement("a");
+                link.setAttribute("href", "#" + slug);
+                link.innerText = title;
+                listItem.appendChild(link);
+                indexElement.appendChild(listItem);
+
+                const headingElement = contentElement.querySelector(`h${level}:contains('${title}')`);
+                if (headingElement) {
+                    headingElement.setAttribute("id", slug);
+                }
+            });
+        }
+    }
+
+    loadArticle(articles[0].file);
+
+    for (let i = 0; i < articles.length; i++) {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.setAttribute("href", `#${i}`);
+        link.innerText = articles[i].title;
+        listItem.appendChild(link);
+        indexElement.appendChild(listItem);
+
+        const articleLink = document.createElement("a");
+        articleLink.setAttribute("name", i);
+        let currentIndex = i;
+        articleLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            const url = articles[currentIndex].file;
+            loadArticle(url);
+        });
+        contentElement.appendChild(articleLink);
+    }
+
+</script>
+</body>
+</html>

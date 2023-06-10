@@ -1,42 +1,331 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="UTF-8" />-->
+    <!--<title>文章阅读框架</title>-->
+    <!--&lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/article.css" />&ndash;&gt;-->
+    <!--<style>-->
+        <!--body {-->
+            <!--font-family: Arial, sans-serif;-->
+            <!--margin: 0; /* 清除 body 的 margin */-->
+            <!--padding: 0; /* 清除 body 的 padding */-->
+            <!--background-color: #433;-->
+            <!--color: #9A45BD;-->
+
+            <!--height: 100%;-->
+        <!--}-->
+        <!--footer-->
+        <!--{-->
+            <!--background-color: #000;-->
+            <!--width: 100%;-->
+            <!--min-height: 20%;-->
+            <!--/*display: flex;*/-->
+            <!--/*justify-content: center;*/-->
+            <!--margin-bottom: 0px;-->
+        <!--}-->
+        <!--#tail-->
+        <!--{-->
+            <!--max-width: 800px;-->
+            <!--margin: 0 auto;-->
+            <!--padding: 20px;-->
+            <!--margin-left: fill;-->
+            <!--margin-top: 20%;-->
+        <!--}-->
+        <!--#mark-->
+        <!--{-->
+            <!--text-align: center;-->
+
+        <!--}-->
+
+        <!--/*#header,*/-->
+        <!--#content {-->
+            <!--min-height: 80%;-->
+            <!--max-width: 80%;-->
+            <!--margin: 0 auto;-->
+            <!--padding: 20px;-->
+            <!--margin-left: fill;-->
+        <!--}-->
+
+        <!--#content {-->
+            <!--margin-left: 25%; /* 根据侧边栏宽度调整 margin */-->
+        <!--}-->
+
+        <!--#index {-->
+            <!--position: fixed;-->
+            <!--left: 20px; /* 调整侧边栏距离左侧的距离 */-->
+            <!--top: 20px; /* 调整侧边栏距离顶部的距离 */-->
+            <!--width: 200px; /* 调整侧边栏宽度 */-->
+
+        <!--}-->
+
+        <!--#index ul {-->
+            <!--padding: 0;-->
+            <!--list-style: none;-->
+        <!--}-->
+
+        <!--#index li {-->
+            <!--margin-bottom: 10px;-->
+        <!--}-->
+
+        <!--#index a {-->
+            <!--display: block;-->
+            <!--color: #55ACEE;-->
+            <!--text-decoration: none;-->
+            <!--font-weight: bold;-->
+        <!--}-->
+
+    <!--</style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;<div id="header">&ndash;&gt;-->
+    <!--&lt;!&ndash;<h1>文章标题</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div id="content">-->
+    <!--加载中...-->
+    <!--&lt;!&ndash; 文章内容将会被动态添加到这个div中 &ndash;&gt;-->
+<!--</div>-->
+
+<!--<div id="index">-->
+    <!--<ul>-->
+        <!--<li><a href="#" data-url="md/article1.md">文章1</a></li>-->
+        <!--<li><a href="#" data-url="md/article2.md">文章2</a></li>-->
+        <!--<li><a href="#" data-url="md/article3.md">文章3</a></li>-->
+        <!--&lt;!&ndash; 更多文章链接 &ndash;&gt;-->
+    <!--</ul>-->
+<!--</div>-->
+
+<!--<footer style="background-color: #333; color: #fff; padding: 30px 0;">-->
+    <!--<div id="tail" style="max-width: 800px; margin: 0 auto; text-align: center;">-->
+        <!--<form action="/message" method="post">-->
+            <!--<div>-->
+                <!--<label style="margin-right: 10px;">评论：</label>-->
+                <!--<input type="text" name="message" style="padding: 5px;">-->
+                <!--<button type="submit" style="padding: 5px 10px; background-color: #eee; color: #333; border: none; margin-left: 10px;">提交</button>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+    <!--<div id="mark" style="text-align: center; margin-top: 20px;">-->
+        <!--<p class="fa fa-quote-left agile-side-by" style="color: #fff;">copyscript by jinyu</p>-->
+    <!--</div>-->
+<!--</footer>-->
+
+
+<!--<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>-->
+<!--&lt;!&ndash;<script src="js/article.js"></script>&ndash;&gt;-->
+<!--<script>-->
+    <!--// 配置 Showdown-->
+    <!--const converter = new showdown.Converter();-->
+    <!--// 获取用来显示文章内容的元素和索引列表元素-->
+    <!--const contentElement = document.getElementById("content");-->
+    <!--const indexElement = document.getElementById("index");-->
+
+    <!--// 获取索引列表中所有链接元素-->
+    <!--const linkElements = indexElement.querySelectorAll("a");-->
+
+    <!--// 加载文章-->
+    <!--function loadArticle(url) {-->
+        <!--// 发送 GET 请求获取文章内容-->
+        <!--const xhr = new XMLHttpRequest();-->
+        <!--xhr.open("GET", url);-->
+        <!--xhr.onload = () => {-->
+            <!--// 将 markdown 文本转换为 HTML-->
+            <!--const html = converter.makeHtml(xhr.responseText);-->
+
+            <!--// 创建用于显示文章的元素-->
+            <!--const articleElement = document.createElement("div");-->
+            <!--articleElement.innerHTML = html;-->
+
+            <!--// 将元素添加到页面中-->
+            <!--contentElement.innerHTML = "";-->
+            <!--contentElement.appendChild(articleElement);-->
+        <!--};-->
+        <!--xhr.send();-->
+    <!--}-->
+
+    <!--// 给每个链接元素添加点击事件处理函数-->
+    <!--for (const linkElement of linkElements) {-->
+        <!--linkElement.addEventListener("click", (event) => {-->
+            <!--event.preventDefault(); // 阻止链接默认行为-->
+            <!--const url = event.target.dataset.url; // 获取文章路径-->
+            <!--loadArticle(url); // 加载文章-->
+        <!--});-->
+    <!--}-->
+
+    <!--const queryString = window.location.search; // 获取查询参数字符串（例如："?article=1"）-->
+    <!--const urlParams = new URLSearchParams(queryString); // 创建 URLSearchParams 对象-->
+    <!--const articleId = urlParams.get('article'); // 获取查询参数 "article" 的值-->
+    <!--// 或者：const articleId = window.location.hash.substring(1); // 获取 URL 中的标识符（例如："#article-1" -> "article-1"）-->
+    <!--// 然后根据 articleId 加载相应的文章内容...-->
+
+    <!--// 页面加载时自动加载第一篇文章-->
+    <!--loadArticle(linkElements[articleId-1].dataset.url);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
     <title>文章阅读框架</title>
-    <link rel="stylesheet" type="text/css" href="css/article.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #433;
+            color: #9A45BD;
+            height: 80%;
+        }
+
+        #header, #content {
+            min-height: 300px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: fill;
+        }
+
+        #content {
+            margin-left: 25%;
+        }
+
+        #index {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            width: 200px;
+        }
+
+        #index ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        #index li {
+            margin-bottom: 10px;
+        }
+
+        #index a {
+            display: block;
+            color: #55ACEE;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #000;
+            width: 100%;
+            min-height: 200px;
+        }
+
+        #tail {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 20%;
+        }
+
+        #mark {
+            text-align: center;
+        }
+
+        .fa-quote-left {
+            font-size: 24px;
+            color: #9A45BD;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            width: 200px;
+            border-radius: 4px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #55ACEE;
+            color: white;
+            padding: 6px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3385e6;
+        }
+    </style>
 </head>
+
 <body>
-<div id="header">
-    <h1>文章标题</h1>
-</div>
+<!--<div id="header">-->
+    <!--<h1>文章标题</h1>-->
+<!--</div>-->
 
 <div id="content">
-    <!-- 文章内容将会被动态添加到这个div中 -->
+    加载中...
 </div>
 
 <div id="index">
     <ul>
         <li><a href="#" data-url="md/article1.md">文章1</a></li>
-        <li><a href="#" data-url="article2.md">文章2</a></li>
-        <li><a href="#" data-url="article3.md">文章3</a></li>
-        <!-- 更多文章链接 -->
+        <li><a href="#" data-url="md/article2.md">文章2</a></li>
+        <li><a href="#" data-url="md/article3.md">文章3</a></li>
     </ul>
 </div>
 
 <footer>
-    <div id="tail">
-        <form action="/message" method="post">
-            <div>
-                <label>评论：</label>
-                <input type="text" name="message">
-                <button type="submit">提交</button>
-            </div>
-        </form>
+    <!--<div id="tail">-->
+        <!--<form action="/message" method="post">-->
+            <!--<div>-->
+                <!--<label>评论：</label>-->
+                <!--<input type="text" name="message">-->
+                <!--<button type="submit">提交</button>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
 
+    <div id="mark">
+        <p class="fa fa-quote-left agile-side-by">© 2023 binjie09</p>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
-<script src="js/article.js"></script>
+<script>
+    const converter = new showdown.Converter();
+    const contentElement = document.getElementById("content");
+    const indexElement = document.getElementById("index");
+    const linkElements = indexElement.querySelectorAll("a");
+
+    function loadArticle(url) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.onload = () => {
+            const html = converter.makeHtml(xhr.responseText);
+            const articleElement = document.createElement("div");
+            articleElement.innerHTML = html;
+            contentElement.innerHTML = "";
+            contentElement.appendChild(articleElement);
+        };
+        xhr.send();
+    }
+
+    for (const linkElement of linkElements) {
+        linkElement.addEventListener("click", (event) => {
+            event.preventDefault();
+            const url = event.target.dataset.url;
+            loadArticle(url);
+        });
+    }
+
+    // 加载指定的文章
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const articleId = urlParams.get('article');
+
+    loadArticle(linkElements[articleId-1].dataset.url);
+</script>
 </body>
 </html>

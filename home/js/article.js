@@ -43,43 +43,5 @@ const articleId = urlParams.get('article'); // 获取查询参数 "article" 的�
 // 或者：const articleId = window.location.hash.substring(1); // 获取 URL 中的标识符（例如："#article-1" -> "article-1"）
 // 然后根据 articleId 加载相应的文章内容...
 
-
 // 页面加载时自动加载第一篇文章
-loadArticle(linkElements[articleId].dataset.url);
-
-//写入md
-const fs = require('fs');
-const { Octokit } = require('@octokit/rest');
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const app = express();
-const octokit = new Octokit({ auth: 'YOUR_ACCESS_TOKEN' });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.post('/message', async (req, res) =>
-{
-    const message = req.body.message;
-
-    // 将留言追加到文件中
-    fs.appendFileSync('messages.md', `- ${message}\n`);
-
-    // 创建一个新的 Commit 并推送到 GitHub
-    const commitMessage = `Add new message: "${message}"`;
-    const fileContent = fs.readFileSync('messages.md', 'base64');
-    await octokit.repos.createOrUpdateFileContents({
-        owner: 'YOUR_GITHUB_USERNAME',
-        repo: 'YOUR_GITHUB_REPO',
-        path: 'md/messages.md',
-        message: commitMessage,
-        content: fileContent,
-        sha: 'REF_TO_LAST_COMMIT'
-    });
-
-    res.send('留言已提交！');
-});
-
-app.listen(3000, () => {
-    console.log('服务器已启动：http://localhost:3000/');
-});
+loadArticle(linkElements[articleId-1].dataset.url);
